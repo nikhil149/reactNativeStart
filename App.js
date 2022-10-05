@@ -11,6 +11,12 @@ export default function App() {
     const updatedGoalList = [...new Set([...goalList, goalInput])];
     setGoalList(updatedGoalList);
   };
+
+  const deleteItemHandler = (id) => {
+    setGoalList((prevGoalList) =>
+      prevGoalList.filter((goal, goalId) => goalId !== id)
+    );
+  };
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -18,7 +24,13 @@ export default function App() {
         <FlatList
           data={goalList}
           renderItem={(itemData) => {
-            return <GoalItem item={itemData.item} />;
+            return (
+              <GoalItem
+                item={itemData.item}
+                id={itemData.index}
+                onDelete={deleteItemHandler}
+              />
+            );
           }}
         />
       </View>
