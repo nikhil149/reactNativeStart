@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import {
   Button,
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -33,13 +34,16 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        <ScrollView>
-          {goalList.map((goal, id) => (
-            <View key={id} style={styles.goalItem}>
-              <Text style={styles.goalText}>{goal}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={goalList}
+          renderItem={(itemData) => {
+            return (
+              <View key={itemData.item} style={styles.goalItem}>
+                <Text style={styles.goalText}>{itemData.item}</Text>
+              </View>
+            );
+          }}
+        />
       </View>
     </View>
   );
